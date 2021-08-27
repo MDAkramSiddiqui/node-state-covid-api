@@ -1,12 +1,13 @@
 const puppeteer = require('puppeteer');
 const constants = require('../constants');
-const AppError = require('../utils/customAppError');
+const logger = require('../utils/logger');
 
 exports.getCovidStatesData = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(constants.global.COVID_STATES_DATA_URL);
+    await page.waitForSelector('table.statetable tbody');
 
     const data = await page.evaluate(() => {
       // eslint-disable-next-line
@@ -29,6 +30,7 @@ exports.getCovidStatesData = async () => {
     await browser.close();
     return data;
   } catch (err) {
-    throw new AppError('Error while fetching states covid data', 500);
+    logger.error(err);
+    throw err;
   }
 };

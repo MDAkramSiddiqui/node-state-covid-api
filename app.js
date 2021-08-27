@@ -2,8 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const covidStatesRouter = require('./routes/covidStatesRouter');
 const logger = require('./utils/logger');
+const globalErrorHandler = require('./utils/globalErrorHandler');
+const covidStatesRouter = require('./routes/covidStatesRouter');
 
 const app = express();
 app.enable('trust proxy');
@@ -29,5 +30,7 @@ app.use('*', (req, res) => {
   res.status(404).json({ status: 'Internal System failure' });
   // next();
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
