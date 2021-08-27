@@ -1,0 +1,8 @@
+{
+  "name": "node-state-covid-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MDAkramSiddiqui/node-state-covid-api.git",
+  "author": "Mohammad Akram <mohammadakram077@gmail.com>",
+  "license": "MIT"
+}
