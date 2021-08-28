@@ -10,6 +10,11 @@ class Logger {
     this.level = LogLevelEnum.ERROR;
   }
 
+  static _getFormattedDate() {
+    const currentDate = new Date();
+    return `${currentDate.toLocaleDateString()} ${Date().split(' ')[4]}`;
+  }
+
   static setLogLevel(logLevel) {
     this.level = logLevel;
   }
@@ -21,16 +26,16 @@ class Logger {
 
     switch (level) {
       case LogLevelEnum.DEBUG:
-        console.debug('[DEBUG]: ', ...logArgs);
+        console.debug(`[DEBUG]: [${Logger._getFormattedDate()}]`, ...logArgs);
         break;
       case LogLevelEnum.INFO:
-        console.info('[INFO]: ', ...logArgs);
+        console.info(`[INFO]: [${Logger._getFormattedDate()}]`, ...logArgs);
         break;
       case LogLevelEnum.WARN:
-        console.warn('[WARN]: ', ...logArgs);
+        console.warn(`[WARN]: [${Logger._getFormattedDate()}]`, ...logArgs);
         break;
       case LogLevelEnum.ERROR:
-        console.error('[ERROR]: ', ...logArgs);
+        console.error(`[ERROR]: [${Logger._getFormattedDate()}]`, ...logArgs);
         break;
       default:
         console.log(...logArgs);
