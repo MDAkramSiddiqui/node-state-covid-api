@@ -1,7 +1,7 @@
 const path = require('path');
 const logger = require('./utils/logger');
 
-const scriptName = path.basename(__dirname);
+const scriptName = path.basename(__filename);
 
 const app = require('./app');
 

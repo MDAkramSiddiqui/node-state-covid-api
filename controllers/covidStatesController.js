@@ -9,9 +9,11 @@ const scriptName = path.basename(__filename);
 // eslint-disable-next-line
 exports.getCovidStatesData = catchAsync(async (req, res, next) => {
   logger.debug(scriptName, 'getCovidStatesData()');
-  const covidStatesData = await CovidStatesService.getCovidStatesData();
-  res.status(201).json({
-    status: 'success',
-    data: covidStatesData,
-  });
+
+  if (res.locals.isFoundInCache) {
+    return next();
+  }
+
+  res.locals.responseData = await CovidStatesService.getCovidStatesData();
+  return next();
 });
