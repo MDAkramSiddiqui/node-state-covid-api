@@ -5,6 +5,7 @@ const cors = require('cors');
 const logger = require('./utils/logger');
 const globalErrorHandler = require('./utils/globalErrorHandler');
 const covidStatesRouter = require('./routes/covidStatesRouter');
+const catchAsync = require('./utils/catchAsync');
 
 const app = express();
 app.enable('trust proxy');
@@ -20,6 +21,10 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+app.use('/ping', catchAsync((req, res) => {
+    res.status(200).send("pong")
+}));
 
 app.use('/api/v1/covid/states', covidStatesRouter);
 
