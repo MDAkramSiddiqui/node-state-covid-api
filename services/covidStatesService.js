@@ -24,12 +24,21 @@ exports.getCovidStatesData = async () => {
         const cols = Object.keys(row.children).map((c) => row.children[c]);
         return ({
           name: cols[1].innerText.trim(),
-          active: cols[2].innerText.trim(),
-          activeInc: cols[3].innerText.trim(),
-          cured: cols[4].innerText.trim(),
-          curedInc: cols[5].innerText.trim(),
-          deaths: cols[6].innerText.trim(),
-          deathsInc: cols[7].innerText.trim(),
+          active: {
+            total: +cols[2].innerText.trim(),
+            changes: +cols[3].innerText.trim(),
+            isIncreased: cols[3].children[0].className !== 'down',
+          },
+          cured: {
+            total: +cols[4].innerText.trim(),
+            changes: +cols[5].innerText.trim(),
+            isIncreased: true,
+          },
+          death: {
+            total: +cols[6].innerText.trim(),
+            changes: +cols[7].innerText.trim(),
+            isIncreased: true,
+          },
         });
       });
       return tRowsFiltered;
