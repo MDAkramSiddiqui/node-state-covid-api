@@ -8,7 +8,10 @@ const scriptName = path.basename(__filename);
 exports.getCovidStatesData = async () => {
   logger.debug(scriptName, 'getCovidStatesData()');
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     const page = await browser.newPage();
     logger.debug(scriptName, 'init puppeteer browser window');
 
