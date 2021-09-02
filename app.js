@@ -15,6 +15,7 @@ app.enable('trust proxy');
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
+app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
 app.options('*', cors());
 
 app.use(express.json({ limit: '10Kb' }));
